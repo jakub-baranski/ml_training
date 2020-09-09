@@ -6,7 +6,7 @@ class LinearRegression:
     def __init__(self):
         pass
 
-    def train_gradient_descent(self, X, y, learning_rate=0.01, n_iters=100):
+    def train(self, X, y, learning_rate=0.01, n_iters=100):
         """
         Trains a linear regression model using gradient descent
         """

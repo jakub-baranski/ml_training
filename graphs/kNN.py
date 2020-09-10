@@ -3,7 +3,7 @@ from graphs.graph import Graph
 import numpy as np
 
 
-class kNNGraph(Graph):
+class KNNGraph(Graph):
 
     name = 'K Nearest Neighbour'
     algorithm_class = kNN

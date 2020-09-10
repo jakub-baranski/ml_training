@@ -43,7 +43,12 @@ class Graph:
 
     def add_click(self, x: int, y: int):
         prediction = self.algorithm.predict(np.asarray([[x, y]]))
-        predicted_cl = int(prediction[0][0])
+        # Algorithms usually return a list of values for a list of provided data, but K Means just
+        # classifies and returns integer straight away
+        if isinstance(prediction, np.ndarray):
+            predicted_cl = int(prediction[0][0])
+        else:
+            predicted_cl = prediction
         self.data = self.data.append(
             dict(x=x, y=y, cl=predicted_cl), ignore_index=True
         )

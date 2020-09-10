@@ -4,6 +4,7 @@ from typing import List, Type
 from matplotlib import pyplot as plt
 from matplotlib.backend_bases import MouseEvent
 
+from graphs.kNN import kNNGraph
 from graphs.logistic_regression import LogisticRegressionGraph
 from graphs.linear_regression import LinearRegressionGraph
 from graphs.graph import Graph
@@ -20,7 +21,11 @@ class Dimensions:
 
 class Panel:
 
-    graph_classes: List[Type[Graph]] = [LinearRegressionGraph, LogisticRegressionGraph]
+    graph_classes: List[Type[Graph]] = [
+        LinearRegressionGraph,
+        LogisticRegressionGraph,
+        kNNGraph
+    ]
 
     graphs: List[Graph] = []
 

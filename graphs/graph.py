@@ -3,6 +3,7 @@ from typing import Any
 from matplotlib.axes import Axes
 from pandas import DataFrame
 from sklearn.datasets import make_blobs
+import numpy as np
 
 
 class Graph:
@@ -41,8 +42,8 @@ class Graph:
         self.data = DataFrame(dict(x=X[:, 0], y=X[:, 1], cl=y))
 
     def add_click(self, x: int, y: int):
-        prediction = self.algorithm.predict([[x, y]])
-        predicted_cl = prediction[0][0]
+        prediction = self.algorithm.predict(np.asarray([[x, y]]))
+        predicted_cl = int(prediction[0][0])
         self.data = self.data.append(
             dict(x=x, y=y, cl=predicted_cl), ignore_index=True
         )

@@ -1,14 +1,13 @@
-from dataclasses import dataclass
 from typing import List, Type
 
 from matplotlib import pyplot as plt
 from matplotlib.backend_bases import MouseEvent
 
+from graphs.graph import Graph
 from graphs.kNN import KNNGraph
 from graphs.k_means import KMeansGraph
-from graphs.logistic_regression import LogisticRegressionGraph
 from graphs.linear_regression import LinearRegressionGraph
-from graphs.graph import Graph
+from graphs.logistic_regression import LogisticRegressionGraph
 
 
 class Panel:

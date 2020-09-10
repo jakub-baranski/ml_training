@@ -8,6 +8,8 @@ import numpy as np
 
 class KMeansGraph(Graph):
 
+    # TODO: This is not working properly I think. Classification not correct on data. Check that!
+
     name = 'KMeans'
     centers = 4
     algorithm_class = partial(KMeans, centers)

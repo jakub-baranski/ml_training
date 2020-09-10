@@ -11,15 +11,6 @@ from graphs.linear_regression import LinearRegressionGraph
 from graphs.graph import Graph
 
 
-@dataclass
-class Dimensions:
-    width: int
-    height: int
-
-    def size(self) -> tuple:
-        return self.width, self.height
-
-
 class Panel:
 
     graph_classes: List[Type[Graph]] = [
@@ -31,10 +22,24 @@ class Panel:
 
     graphs: List[Graph] = []
 
-    def __init__(self, width: int, height: int) -> None:
-        self.dimensions = Dimensions(width=width, height=height)
+    def __init__(self) -> None:
         self.fig, axes = plt.subplots(len(self.graph_classes))
+        self._create_graphs(axes)
+        self._connect_mouse_listener()
+        plt.draw()
 
+    def show(self):
+        plt.show()
+
+    def on_click(self, event: MouseEvent):
+        try:
+            clicked_graph = next(g for g in self.graphs if g.ax is event.inaxes)
+            clicked_graph.add_click(event.xdata, event.ydata)
+            self.fig.canvas.draw()
+        except StopIteration:
+            return
+
+    def _create_graphs(self, axes):
         for i, graph_cl in enumerate(self.graph_classes):
             graph = graph_cl(axes[i])
             graph.generate_random_data()
@@ -42,22 +47,5 @@ class Panel:
             graph.render()
             self.graphs.append(graph)
 
-        self._connect_mouse_listener()
-        plt.draw()
-
-    def show(self):
-        plt.show()
-
     def _connect_mouse_listener(self):
         self.fig.canvas.mpl_connect('button_press_event', self.on_click)
-
-    def on_click(self, event: MouseEvent):
-        """
-        On click add new data to the clicks set that matches clicked region.
-        """
-        try:
-            clicked_graph = next(g for g in self.graphs if g.ax is event.inaxes)
-            clicked_graph.add_click(event.xdata, event.ydata)
-            self.fig.canvas.draw()
-        except StopIteration:
-            return
